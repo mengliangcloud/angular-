@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>$watch的应用</title>
+</head>
+<!--ng-app指的是控制的范围-->
+<body ng-app="myApp">
+    <!--ng-controller 控制的是模块中的那块被操作吧的数据模型-->
+    <div ng-controller="myController">
+        <input type="text" ng-model="a">+
+        <input type="text" ng-model="b">=
+        <input type="text" ng-model="c">
+    </div>
+    <script src="node_modules/angular/angular.js"></script>
+    <script>
+        //创建模块
+        var myApp=angular.module("myApp",[]);
+        //调用模块中的控制器
+        myApp.controller("myController",function($scope){
+            //控制器中的$scope指的是模块中的数据模型
+            //下面所初始化的变量是$scope数据模型中的成员
+            $scope.a=0;
+            $scope.b=0;
+            $scope.c=0;
+            //监视a的值
+            $scope.$watch("a",function(newVal,oldVal){
+                //监视a的值并和b相加后得到c的值
+                $scope.c=($scope.a-0)+($scope.b-0);
+            })
+            //监视b的值
+            $scope.$watch("b",function(newVal,oldVal){
+                //监视b的值并和a相加后得到c的值
+                $scope.c=($scope.a-0)+($scope.b-0);
+            })
+        });
+    </script>
+</body>
+
+</html>
